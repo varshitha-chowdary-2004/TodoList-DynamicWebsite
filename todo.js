@@ -67,6 +67,7 @@ function createAndAppendTodo(todo) {
     let inputElement = document.createElement("input");
     inputElement.type = "checkbox";
     inputElement.id = checkboxId;
+    inputElement.checked = todo.isChecked;
 
     inputElement.onclick = function() {
         onTodoStatusChange(checkboxId, labelId,todoId);
@@ -84,6 +85,9 @@ function createAndAppendTodo(todo) {
     labelElement.id = labelId;
     labelElement.classList.add("checkbox-label");
     labelElement.textContent = todo.text;
+    if (todo.isChecked === true) {
+    labelElement.classList.add("checked");
+    }
     labelContainer.appendChild(labelElement);
 
     let deleteIconContainer = document.createElement("div");
@@ -117,7 +121,8 @@ function onAddTodo() {
 
     let newTodo = {
         text: userInputValue,
-        uniqueNo: todosCount
+        uniqueNo: todosCount,
+        isChecked=false
     };
 
     createAndAppendTodo(newTodo);
