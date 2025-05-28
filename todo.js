@@ -15,11 +15,28 @@ let todoList = getTodoListFromLocalStrorage();
 
 
 
-function onTodoStatusChange(checkboxId, labelId) {
+function onTodoStatusChange(checkboxId, labelId,todoId) {
     let checkboxElement = document.getElementById(checkboxId);
     let labelElement = document.getElementById(labelId);
 
     labelElement.classList.toggle('checked');
+    let todoObjectIndex = todoList.findIndex(function(eachTodo) {
+    let eachTodoId = "todo" + eachTodo.uniqueNo;
+
+    if (eachTodoId === todoId) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  let todoObject = todoList[todoObjectIndex];
+
+  if(todoObject.isChecked === true){
+    todoObject.isChecked = false;
+  } else {
+    todoObject.isChecked = true;
+  }
 }
 
 function onDeleteTodo(todoId) {
@@ -52,7 +69,7 @@ function createAndAppendTodo(todo) {
     inputElement.id = checkboxId;
 
     inputElement.onclick = function() {
-        onTodoStatusChange(checkboxId, labelId);
+        onTodoStatusChange(checkboxId, labelId,todoId);
     }
 
     inputElement.classList.add("checkbox-input");
